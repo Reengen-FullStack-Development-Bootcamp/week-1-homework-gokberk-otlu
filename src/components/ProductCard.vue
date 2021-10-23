@@ -4,20 +4,18 @@
             <b-col cols="6" class="product-image-size-container p-0 me-4">
                 <b-row>
                     <b-img class="product-card-image" :src="require('../assets/' + this.product.image)" fluid
-                    alt="Responsive image">
+                        alt="Responsive image">
                     </b-img>
                 </b-row>
                 <b-row>
                     <h5 class="choose-size">CHOOSE SIZE</h5>
                     <b-row class="size-container m-0">
-                        <div>5</div>
-                        <div>6</div>
-                        <div>7</div>
-                        <div>8</div>
-                        <div>9</div>
-                        <div>10</div>
-                        <div>11</div>
-                        <div>12</div>
+                        <div
+                        @click="setSize"
+                        v-for="size in sizes"
+                        :key="size">
+                            {{ size }}
+                        </div>
                     </b-row>
                 </b-row>
             </b-col>
@@ -27,8 +25,8 @@
                 <span class="product-price">$ {{ product.price }}</span>
                 <div>
                     <b-form-rating id="rating-inline" :color="product.colorCode" readonly no-border
-                    style="background-color: transparent; padding: 0; box-shadow: none;"
-                    inline v-model="product.rating">
+                        style="background-color: transparent; padding: 0; box-shadow: none;" inline
+                        v-model="product.rating">
                     </b-form-rating>
                 </div>
                 <p class="product-explanation">
@@ -36,20 +34,11 @@
                 </p>
                 <b-row class="btn-add-to-card">
                     <b-col>
-                        <select name="product-select-numbers" id="product-select-numbers">
-                            <option value="product-num-1">1</option>
-                            <option value="product-num-1">2</option>
-                            <option value="product-num-1">3</option>
-                            <option value="product-num-1">4</option>
-                            <option value="product-num-1">5</option>
-                            <option value="product-num-1">6</option>
-                            <option value="product-num-1">7</option>
-                            <option value="product-num-1">8</option>
-                            <option value="product-num-1">9</option>
-                            <option value="product-num-1">10</option>
+                        <select name="product-select-numbers" id="product-select-numbers" v-model="productNumber">
+                            <option v-for="i in 10" :key="i">{{ i }}</option>
                         </select>
                     </b-col>
-                    <b-col>
+                    <b-col @click="addToBasket">
                         <span>ADD TO CARD</span>
                     </b-col>
                 </b-row>
@@ -60,27 +49,52 @@
 
 <script>
     export default {
-        created() {
-            console.log(this.product);
-        },
         data() {
-            return {}
+            return {
+                productNumber: 1,
+                sizes: [5,6,7,8,9,10,11,12],
+                selectedSize: null
+            }
         },
-        props: ['product'],
+        props: ['product', 'basket'],
         computed: {
             cssColorVar() {
                 return {
                     '--color': this.product.colorCode
                 }
             }
-        }
+        },
+        methods: {
+            addToBasket() {
+                let addedItem = {
+                    productName: this.product.name,
+                    productImage: this.product.image,
+                    productNumber: parseInt(this.productNumber),
+                    productColor: this.product.colorCode,
+                    productSize: this.selectedSize,
+                }
+                if(this.selectedSize) {
+                    this.$emit('basketUpdate', addedItem)
+                }
+            },
+            setSize(event) {
+                this.selectedSize = parseInt(event.target.innerHTML);
+                document.querySelectorAll(".size-container__selected").forEach(element => {
+                    element.classList.remove("size-container__selected");
+                })
+                event.target.classList.add("size-container__selected");
+            }
+        },
     }
 </script>
 
 <style scoped>
-
     .product-card-col {
         min-width: 524px;
+    }
+
+    .product-card-col:hover img {
+        transform: scale(1.1);
     }
 
     .product-card {
@@ -102,6 +116,7 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
+        transition: transform .8s;
     }
 
     .choose-size {
@@ -123,6 +138,12 @@
         align-items: center;
         border: .3px solid var(--color);
         color: var(--color);
+        cursor: pointer;
+    }
+
+    .size-container__selected {
+        background-color: var(--color);
+        color: #fff;
     }
 
     .product-category {

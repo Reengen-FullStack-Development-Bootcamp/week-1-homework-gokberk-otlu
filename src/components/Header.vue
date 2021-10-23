@@ -3,18 +3,7 @@
         <b-navbar type="dark" variant="dark">
             <b-navbar-nav class="navbar-container">
                 <b-nav-item class="navbar-brand" href="#">Basket-App</b-nav-item>
-                <b-nav-item-dropdown class="basket-dropdown" right>
-                    <template #button-content><i class="fas fa-shopping-basket fa-lg"></i></template>
-                    <b-dropdown-item href="#">
-                        <dropdown-item />
-                    </b-dropdown-item>
-                    <b-dropdown-item href="#">
-                        <dropdown-item />
-                    </b-dropdown-item>
-                    <b-dropdown-item href="#">RU</b-dropdown-item>
-                    <b-dropdown-item href="#">FA</b-dropdown-item>
-                    <b-dropdown-item href="#">FA</b-dropdown-item>
-                </b-nav-item-dropdown>
+                <Basket class="basket-dropdown" :basket="basket" />
             </b-navbar-nav>
         </b-navbar>
     </div>
@@ -22,10 +11,21 @@
 </template>
 
 <script>
-import DropdownItem from './DropdownItem.vue'
+import Basket from './Basket.vue'
     export default {
         components: {
-            DropdownItem
+            Basket
+        },
+        props: ["basket"],
+        watch: {
+            basket() {
+                console.log(this.basket);
+            }
+        },
+        methods: {
+            openModel() {
+                this.$refs["basketModel"].show();
+            }
         }
     }
 </script>
@@ -45,6 +45,7 @@ import DropdownItem from './DropdownItem.vue'
 
     .basket-dropdown {
         position: absolute;
-        right: 220px;
+        right: 100px;
+        background-color: transparent;
     }
 </style>

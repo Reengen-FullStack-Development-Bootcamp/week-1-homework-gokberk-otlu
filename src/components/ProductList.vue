@@ -1,9 +1,10 @@
 <template>
     <div>
-        <Header />
+        <Header :basket="basket" />
         <b-container>
             <b-row class="product-cards-container">
                 <product-card
+                @basketUpdate="setBasket($event)"
                 v-for="product in products"
                 :product="product"
                 :key="product.id" />
@@ -19,10 +20,11 @@ export default {
     name: 'App',
     components: {
         ProductCard,
-        Header
+        Header,
     },
     data() {
         return {
+            basket: [],
             products: [
                 {
                     id: 1,
@@ -40,7 +42,7 @@ export default {
                     category: "WOMEN'S RUNNING SHOE".toUpperCase(),
                     detail: "The Nike Epic React Flyknit 2 takes a step up from its predecessor with smooth, lightweight performance and a bold look.",
                     price: 150,
-                    rating: 4,
+                    rating: 4.7,
                     colorCode: "#3476A6",
                     image: "nike-epic-react-blue.jpg"
                 },
@@ -50,7 +52,7 @@ export default {
                     category: "WOMEN'S RUNNING SHOE".toUpperCase(),
                     detail: "The Nike Epic React Flyknit 2 takes a step up from its predecessor with smooth, lightweight performance and a bold look.",
                     price: 150,
-                    rating: 4,
+                    rating: 3.6,
                     colorCode: "#D3ADAC",
                     image: "nike-epic-react-pink.jpg"
                 },
@@ -60,13 +62,34 @@ export default {
                     category: "WOMEN'S RUNNING SHOE".toUpperCase(),
                     detail: "The Nike Epic React Flyknit 2 takes a step up from its predecessor with smooth, lightweight performance and a bold look.",
                     price: 150,
-                    rating: 4,
+                    rating: 5,
                     colorCode: "#3476A6",
                     image: "nike-epic-react-blue.jpg"
                 },
             ],
         }
     },
+    methods: {
+        setBasket(addedItem) {
+            let checkSameNameSize = this.basket.find(function(item) {
+                if(item.productName === addedItem.productName &&
+                item.productSize === addedItem.productSize &&
+                item.productColor === addedItem.productColor) {
+                    return true;
+                }
+            });
+            if(checkSameNameSize) {
+                this.basket[this.basket.indexOf(checkSameNameSize)].productNumber += addedItem.productNumber;
+            } else {
+                this.basket.push(addedItem)
+            }
+        }
+    },
+    watch: {
+        basket() {
+            console.log(this.basket);
+        }
+    }
 }
 </script>
 
