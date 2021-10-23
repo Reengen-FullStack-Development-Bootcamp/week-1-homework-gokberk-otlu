@@ -9,7 +9,10 @@
                 <p>Basket is empty</p>
             </b-row>
             <basket-item v-else v-for="(item, index) in basket" :item="item" :key="index" />
-            <p>Total Price: {{ totalPrice() }}</p>
+            <div class="basket-total-price-container">
+                <span class="fw-bold">Total Price:</span>
+                <span class="ms-1">${{ totalPrice() }}</span>
+            </div>
         </b-modal>
     </div>
 </template>
@@ -39,5 +42,12 @@ import BasketItem from './BasketItem.vue'
 <style scoped>
     .open-model {
         background-color: transparent;
+    }
+
+    .basket-total-price-container {
+        border: 1px solid gray;
+        display: inline-block;
+        padding: 5px 10px;
+        margin-top: 15px;
     }
 </style>

@@ -7,13 +7,19 @@
         </b-col>
         <b-col>
             <p class="basket-product-name">{{ item.productName }}</p>
-            <p>Size: {{ item.productSize }}</p>
+            <div class="mb-1">
+                <span class="basket-product-header">Size:</span>
+                <span class="basket-product-size">{{ item.productSize }}</span>
+            </div>
             <div>
                 <i @click="decreaseProductNumber" class="fas fa-minus"></i>
                 <span class="basket-product-number">{{ item.productNumber }}</span>
                 <i @click="increaseProductNumber" class="fas fa-plus"></i>
             </div>
-            <p>Price: ${{ item.productPrice * item.productNumber }}</p>
+            <div class="basket-products-price-container">
+                <span class="basket-product-header">Price:</span>
+                <span class="ms-1">${{ item.productPrice * item.productNumber }}</span>
+            </div>    
         </b-col>
     </b-row>
 </template>
@@ -64,10 +70,32 @@ export default {
 
     .basket-product-name {
         color: var(--basket-item-color);
+        margin-bottom: 5px;
     }
 
     .basket-product-number {
         margin: 0 7px;
+    }
+
+    .basket-product-header {
+        font-weight: bold;
+    }
+
+    .basket-product-size {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        color: #fff;
+        background-color: var(--basket-item-color);
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        margin-left: 5px;
+        font-size: .8rem;
+    }
+
+    .basket-products-price-container {
+        text-align: right;
     }
 
     i.fas {
