@@ -8,7 +8,7 @@
             <b-row v-if="basket.length === 0">
                 <p>Basket is empty</p>
             </b-row>
-            <basket-item v-else v-for="(item, index) in basket" :item="item" :key="index" />
+            <basket-item v-else v-for="(item, index) in basket" :item="item" :key="index" :basket="basket" />
             <div class="basket-total-price-container">
                 <span class="fw-bold">Total Price:</span>
                 <span class="ms-1">${{ totalPrice() }}</span>

@@ -1,27 +1,30 @@
 <template>
-    <b-row class="basket-item-container" :style="cssBasketVar">
-        <b-col cols="4">
-            <b-img class="product-card-image" :src="require('../assets/' + item.productImage)" fluid
-                alt="Responsive image">
-            </b-img>
-        </b-col>
-        <b-col>
-            <p class="basket-product-name">{{ item.productName }}</p>
-            <div class="mb-1">
-                <span class="basket-product-header">Size:</span>
-                <span class="basket-product-size">{{ item.productSize }}</span>
-            </div>
-            <div>
-                <i @click="decreaseProductNumber" class="fas fa-minus"></i>
-                <span class="basket-product-number">{{ item.productNumber }}</span>
-                <i @click="increaseProductNumber" class="fas fa-plus"></i>
-            </div>
-            <div class="basket-products-price-container">
-                <span class="basket-product-header">Price:</span>
-                <span class="ms-1">${{ item.productPrice * item.productNumber }}</span>
-            </div>    
-        </b-col>
-    </b-row>
+    <div class="basket-wrapper">
+        <i @click="deleteItem" class="fas fa-trash-alt"></i>
+        <b-row class="basket-item-container" :style="cssBasketVar">
+            <b-col cols="4">
+                <b-img class="product-card-image" :src="require('../assets/' + item.productImage)" fluid
+                    alt="Responsive image">
+                </b-img>
+            </b-col>
+            <b-col>
+                <p class="basket-product-name">{{ item.productName }}</p>
+                <div class="mb-1 mt-2">
+                    <span class="basket-product-header">Size:</span>
+                    <span class="basket-product-size">{{ item.productSize }}</span>
+                </div>
+                <div>
+                    <i @click="decreaseProductNumber" class="fas fa-minus"></i>
+                    <span class="basket-product-number">{{ item.productNumber }}</span>
+                    <i @click="increaseProductNumber" class="fas fa-plus"></i>
+                </div>
+                <div class="basket-products-price-container">
+                    <span class="basket-product-header">Price:</span>
+                    <span class="ms-1">${{ item.productPrice * item.productNumber }}</span>
+                </div>    
+            </b-col>
+        </b-row>
+    </div>
 </template>
 
 <script>
@@ -32,12 +35,15 @@ export default {
             if(this.item.productNumber > 1) {
                 this.item.productNumber -= 1;
             } else {
-                this.basket.splice(this.basket.indexOf(this.item), 1);
+                this.deleteItem();
             }
         },
         increaseProductNumber() {
             this.item.productNumber += 1;
         },
+        deleteItem() {
+            this.basket.splice(this.basket.indexOf(this.item), 1);
+        }
     },
     computed: {
         cssBasketVar() {
@@ -50,6 +56,10 @@ export default {
 </script>
 
 <style scoped>
+    .basket-wrapper {
+        position: relative;
+    }
+
     .basket-item-container {
         display: flex;
         align-items: center;
@@ -71,6 +81,7 @@ export default {
     .basket-product-name {
         color: var(--basket-item-color);
         margin-bottom: 5px;
+        margin-top: 5px;
     }
 
     .basket-product-number {
@@ -96,15 +107,24 @@ export default {
 
     .basket-products-price-container {
         text-align: right;
+        margin-bottom: 10px;
     }
 
-    i.fas {
+    i.fa-trash-alt {
+        position: absolute;
+        top: 9px;
+        right: 5px;
+        transition: transform .3s;
+        cursor: pointer;
+    }
+
+    i.fa-minus, i.fa-plus {
         color: #333;
         transition: transform .3s;
         cursor: pointer;
     }
 
-    i.fas:hover {
+    i.fa-minus:hover, i.fa-plus:hover, i.fa-trash-alt:hover {
         transform: scale(1.1);
     }
 
