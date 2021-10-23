@@ -1,6 +1,6 @@
 <template>
     <div>
-        <b-button @click="openModel">
+        <b-button @click="openModel" class="open-model">
             <i class="fas fa-shopping-basket fa-lg me-2"></i>
             <span>{{ basket.length }}</span>
         </b-button>
@@ -9,6 +9,7 @@
                 <p>Basket is empty</p>
             </b-row>
             <basket-item v-else v-for="(item, index) in basket" :item="item" :key="index" />
+            <p>Total Price: {{ totalPrice() }}</p>
         </b-modal>
     </div>
 </template>
@@ -23,10 +24,20 @@ import BasketItem from './BasketItem.vue'
         methods: {
             openModel() {
                 this.$refs["basketModel"].show();
+            },
+            totalPrice() {
+                let total = 0;
+                this.basket.forEach(item => {
+                    total += item.productPrice * item.productNumber
+                });
+                return total;
             }
         }
     }
 </script>
 
 <style scoped>
+    .open-model {
+        background-color: transparent;
+    }
 </style>

@@ -22,7 +22,7 @@
             <b-col class="p-0">
                 <h3 class="product-category">{{ product.category }}</h3>
                 <h2 class="product-header">{{ product.name }}</h2>
-                <span class="product-price">$ {{ product.price }}</span>
+                <span class="product-price">$ {{ product.price + ((selectedSize ? selectedSize : sizes[0]) - 5) * 10 }}</span>
                 <div>
                     <b-form-rating id="rating-inline" :color="product.colorCode" readonly no-border
                         style="background-color: transparent; padding: 0; box-shadow: none;" inline
@@ -72,6 +72,7 @@
                     productNumber: parseInt(this.productNumber),
                     productColor: this.product.colorCode,
                     productSize: this.selectedSize,
+                    productPrice: this.product.price + ((this.selectedSize ? this.selectedSize : this.sizes[0]) - 5) * 10
                 }
                 if(this.selectedSize) {
                     this.$emit('basketUpdate', addedItem)

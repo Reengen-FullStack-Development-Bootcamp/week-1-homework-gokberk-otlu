@@ -13,6 +13,7 @@
                 <span class="basket-product-number">{{ item.productNumber }}</span>
                 <i @click="increaseProductNumber" class="fas fa-plus"></i>
             </div>
+            <p>Price: ${{ item.productPrice * item.productNumber }}</p>
         </b-col>
     </b-row>
 </template>
@@ -26,7 +27,6 @@ export default {
                 this.item.productNumber -= 1;
             } else {
                 this.basket.splice(this.basket.indexOf(this.item), 1);
-                // console.log(this.basket.indexOf(this.item));
             }
         },
         increaseProductNumber() {
