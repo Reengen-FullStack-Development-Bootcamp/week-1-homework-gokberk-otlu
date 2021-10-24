@@ -1,7 +1,6 @@
 <template>
     <div>
         <Header :basket="basket" />
-        <Toaster />
         <b-container>
             <b-row class="product-cards-container">
                 <product-card
@@ -18,13 +17,11 @@
 <script>
 import ProductCard from './ProductCard.vue'
 import Header from './Header.vue'
-import Toaster from './Toaster.vue'
 export default {
     name: 'App',
     components: {
         ProductCard,
-        Header,
-        Toaster
+        Header
     },
     data() {
         return {
