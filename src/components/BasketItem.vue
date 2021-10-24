@@ -1,7 +1,7 @@
 <template>
     <div class="basket-wrapper">
         <i @click="deleteItem" class="fas fa-trash-alt"></i>
-        <b-row class="basket-item-container" :style="cssBasketVar">
+        <b-row class="basket-item-container m-0" :style="cssBasketVar">
             <b-col cols="4">
                 <b-img class="product-card-image" :src="require('../assets/' + item.productImage)" fluid
                     alt="Responsive image">
@@ -76,10 +76,6 @@ export default {
 
     .basket-item-container:hover img {
         transform: scale(1.1);
-    }
-
-    .basket-item-container:nth-child(odd) {
-        background-color: #F3F3F3;
     }
 
     .basket-product-name {
