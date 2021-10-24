@@ -83,7 +83,7 @@
             setSize(event) {
                 // size boxes selection
                 this.selectedSize = parseInt(event.target.innerHTML);
-                document.querySelectorAll(`product-card-${this.index} .size-container__selected`).forEach(element => {
+                document.querySelectorAll(`#product-card-${this.index} .size-container__selected`).forEach(element => {
                     element.classList.remove("size-container__selected");
                 })
                 event.target.classList.add("size-container__selected");
