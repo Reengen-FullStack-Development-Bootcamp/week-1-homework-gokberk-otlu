@@ -1,5 +1,5 @@
 <template>
-    <b-col md="7" lg="5" class="product-card-col" :style="cssColorVar">
+    <b-col md="7" lg="5" :id="`product-card-${index}`" class="product-card-col" :style="cssColorVar">
         <b-row class="product-card">
             <b-col cols="6" class="product-image-size-container p-0 me-4">
                 <b-row>
@@ -56,7 +56,7 @@
                 selectedSize: null
             }
         },
-        props: ['product', 'basket'],
+        props: ['product', 'basket', 'index'],
         computed: {
             cssColorVar() {
                 return {
@@ -83,7 +83,7 @@
             setSize(event) {
                 // size boxes selection
                 this.selectedSize = parseInt(event.target.innerHTML);
-                document.querySelectorAll(".size-container__selected").forEach(element => {
+                document.querySelectorAll(`product-card-${this.index} .size-container__selected`).forEach(element => {
                     element.classList.remove("size-container__selected");
                 })
                 event.target.classList.add("size-container__selected");

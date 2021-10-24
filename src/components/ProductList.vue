@@ -7,6 +7,7 @@
                 <product-card
                 @basketUpdate="setBasket($event)"
                 v-for="product in products"
+                :index="product.id"
                 :product="product"
                 :key="product.id" />
             </b-row>
