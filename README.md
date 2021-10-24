@@ -4,7 +4,7 @@ Shopping Application built in VueJs.
 
 # [Live Demo](https://vue-basketapp-week-1-gokberk.netlify.app/)
 
-## Basket App
+## Shopping Application
 
 ### Content of Project
 
