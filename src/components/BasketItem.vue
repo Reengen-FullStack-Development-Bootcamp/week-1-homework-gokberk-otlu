@@ -32,6 +32,7 @@ export default {
     props: ["item", "basket"],
     methods: {
         decreaseProductNumber() {
+            // decrease number of same type products
             if(this.item.productNumber > 1) {
                 this.item.productNumber -= 1;
             } else {
@@ -39,14 +40,17 @@ export default {
             }
         },
         increaseProductNumber() {
+            // increase number of same type products
             this.item.productNumber += 1;
         },
         deleteItem() {
+            // delete selected type of products
             this.basket.splice(this.basket.indexOf(this.item), 1);
         }
     },
     computed: {
         cssBasketVar() {
+            // bind style property color to use inside css as root value
             return {
                 '--basket-item-color': this.item.productColor
             }

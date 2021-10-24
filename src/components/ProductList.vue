@@ -1,6 +1,7 @@
 <template>
     <div>
         <Header :basket="basket" />
+        <Toaster />
         <b-container>
             <b-row class="product-cards-container">
                 <product-card
@@ -16,11 +17,13 @@
 <script>
 import ProductCard from './ProductCard.vue'
 import Header from './Header.vue'
+import Toaster from './Toaster.vue'
 export default {
     name: 'App',
     components: {
         ProductCard,
         Header,
+        Toaster
     },
     data() {
         return {
@@ -71,6 +74,7 @@ export default {
     },
     methods: {
         setBasket(addedItem) {
+            // set basket with added item
             let checkSameNameSize = this.basket.find(function(item) {
                 if(item.productName === addedItem.productName &&
                 item.productSize === addedItem.productSize &&
@@ -84,11 +88,6 @@ export default {
                 this.basket.push(addedItem)
             }
         }
-    },
-    watch: {
-        basket() {
-            console.log(this.basket);
-        }
     }
 }
 </script>
@@ -99,5 +98,6 @@ export default {
         gap: 30px;
         justify-content: center;
         align-items: center;
+        margin-bottom: 40px;
     }
 </style>

@@ -17,16 +17,6 @@ import Basket from './Basket.vue'
             Basket
         },
         props: ["basket"],
-        watch: {
-            basket() {
-                console.log(this.basket);
-            }
-        },
-        methods: {
-            openModel() {
-                this.$refs["basketModel"].show();
-            }
-        }
     }
 </script>
 
@@ -35,6 +25,7 @@ import Basket from './Basket.vue'
         margin-bottom: 50px;
         position: sticky;
         top: 0;
+        z-index: 1;
     }
 
     .navbar-container {

@@ -66,6 +66,7 @@
         },
         methods: {
             addToBasket() {
+                // features of added product
                 let addedItem = {
                     productName: this.product.name,
                     productImage: this.product.image,
@@ -75,10 +76,12 @@
                     productPrice: this.product.price + ((this.selectedSize ? this.selectedSize : this.sizes[0]) - 5) * 10
                 }
                 if(this.selectedSize) {
+                    // emit added item to parent component to push basket data
                     this.$emit('basketUpdate', addedItem)
                 }
             },
             setSize(event) {
+                // size boxes selection
                 this.selectedSize = parseInt(event.target.innerHTML);
                 document.querySelectorAll(".size-container__selected").forEach(element => {
                     element.classList.remove("size-container__selected");

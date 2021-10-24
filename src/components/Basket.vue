@@ -26,9 +26,11 @@ import BasketItem from './BasketItem.vue'
         },
         methods: {
             openModel() {
+                // Show basket inside modal
                 this.$refs["basketModel"].show();
             },
             totalPrice() {
+                // calculate total price of products
                 let total = 0;
                 this.basket.forEach(item => {
                     total += item.productPrice * item.productNumber
