@@ -1,10 +1,12 @@
 <template>
     <div>
         <Header :basket="basket" />
+        <Toaster @closeToaster="showToaster = $event" v-if="showToaster" :showToaster="showToaster" :toasterText="toasterText" />
         <b-container>
             <b-row class="product-cards-container">
                 <product-card
                 @basketUpdate="setBasket($event)"
+                @sizeReqWarning="callToaster($event)"
                 v-for="product in products"
                 :index="product.id"
                 :product="product"
@@ -17,11 +19,13 @@
 <script>
 import ProductCard from './ProductCard.vue'
 import Header from './Header.vue'
+import Toaster from './Toaster.vue'
 export default {
     name: 'App',
     components: {
         ProductCard,
-        Header
+        Header,
+        Toaster
     },
     data() {
         return {
@@ -68,6 +72,8 @@ export default {
                     image: "nike-epic-react-blue.jpg"
                 },
             ],
+            showToaster: false,
+            toasterText: '',
         }
     },
     methods: {
@@ -85,6 +91,18 @@ export default {
             } else {
                 this.basket.push(addedItem)
             }
+            this.callToaster('Product is added!')
+        },
+        callToaster(info) {
+            // call toaster with toaster text
+            let clear = async () => {
+                this.showToaster = false;
+            }
+            this.toasterText = info;
+            // reset component async before setting showToaster true
+            clear().then(() => {
+                this.showToaster = true;
+            })
         }
     }
 }

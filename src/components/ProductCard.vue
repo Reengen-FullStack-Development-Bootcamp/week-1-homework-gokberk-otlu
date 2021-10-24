@@ -1,5 +1,5 @@
 <template>
-    <b-col md="7" lg="5" :id="`product-card-${index}`" class="product-card-col" :style="cssColorVar">
+    <b-col sm="11" md="9" lg="5" :id="`product-card-${index}`" class="product-card-col" :style="cssColorVar">
         <b-row class="product-card">
             <b-col cols="6" class="product-image-size-container p-0 me-4">
                 <b-row>
@@ -33,13 +33,13 @@
                     {{product.detail}}
                 </p>
                 <b-row class="btn-add-to-card">
-                    <b-col>
+                    <b-col cols="4">
                         <select name="product-select-numbers" id="product-select-numbers" v-model="productNumber">
                             <option v-for="i in 10" :key="i">{{ i }}</option>
                         </select>
                     </b-col>
-                    <b-col @click="addToBasket">
-                        <span>ADD TO CARD</span>
+                    <b-col cols="8" @click="addToBasket">
+                        <span class="add-to-card">ADD TO CARD</span>
                     </b-col>
                 </b-row>
             </b-col>
@@ -78,6 +78,9 @@
                 if(this.selectedSize) {
                     // emit added item to parent component to push basket data
                     this.$emit('basketUpdate', addedItem)
+                } else {
+                    // send warning to toaster inside the parent component
+                    this.$emit('sizeReqWarning', 'Size is required')
                 }
             },
             setSize(event) {
@@ -94,7 +97,7 @@
 
 <style scoped>
     .product-card-col {
-        min-width: 524px;
+        min-width: 375px;
     }
 
     .product-card-col:hover img {
@@ -134,8 +137,9 @@
     }
 
     .size-container * {
-        width: 25px;
-        height: 25px;
+        box-sizing: border-box;
+        padding: 0;
+        width: calc(12.5% - 2px);
         font-size: .9rem;
         display: flex;
         justify-content: center;
@@ -169,10 +173,9 @@
         font-size: .8rem;
     }
 
-    .btn-add-to-card span {
+    .btn-add-to-card .add-to-card {
         color: #fff;
         background-color: var(--color);
-        width: 140px;
         height: 50px;
         display: flex;
         justify-content: center;
