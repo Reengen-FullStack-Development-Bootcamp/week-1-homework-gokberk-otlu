@@ -2,7 +2,7 @@
     <div>
         <b-button @click="openModel" class="open-model">
             <i class="fas fa-shopping-basket fa-lg me-2"></i>
-            <span>{{ basket.length }}</span>
+            <span>{{ calculateProductNumber() }}</span>
         </b-button>
         <b-modal ref="basketModel" title="Basket">
             <b-row v-if="basket.length === 0">
@@ -36,8 +36,15 @@ import BasketItem from './BasketItem.vue'
                     total += item.productPrice * item.productNumber
                 });
                 return total;
+            },
+            calculateProductNumber() {
+                let productNumber = 0;
+                this.basket.forEach(item => {
+                    productNumber += item.productNumber
+                });
+                return productNumber;
             }
-        }
+        },
     }
 </script>
 
